@@ -26,12 +26,17 @@ def atos(alpha):
 ###############################
 
 def commute(alpha, index_0, index_1):
-    a = alpha[index_1]
+    alpha_prime = []
     
-    alpha[index_1] = alpha[index_0]
-    alpha[index_0] = a
+    for a in alpha:
+        alpha_prime.append(a)
+
+    a = alpha_prime[index_1]
     
-    return alpha
+    alpha_prime[index_1] = alpha_prime[index_0]
+    alpha_prime[index_0] = a
+    
+    return alpha_prime
 
 ###############################
 
@@ -93,9 +98,35 @@ dbc (ident a) + 5 (2,0,1)
 0 abc ident d d = 3           (0,1,2)
 1 bac <1,0,2> (0,1),(1,0),(2,2)
 2 cba <2,1,0> (0,2),(1,1),(2,0)
+3 bca <1,2,0> (0,1),(1,0),(2,2)
+4 acb <0,2,1> (0,2),(1,1),(2,0)
+5 cab <2,0,1>                   (2,0,1)
+
+1 bac <1,0,2> (0,1),(1,0),(2,2)
+2 cba <2,0,1> (0,2),(1,0),(2,1)
 3 bca <1,0,2> (0,1),(1,0),(2,2)
 4 acb <2,1,0> (0,2),(1,1),(2,0)
-5 cab <1,0,2>                   (2,0,1)
+5 cab <1,0,2> (0,1),(1,0),(2,2)
+
+bac, cba, bca, acb, cab
+102, 201, 102, 210, 102
+
+bac, bca, cba, acb, cab
+102, 021, 102, 201, 102
+
+bac, acb, cba, bca, cab
+102, 120, 120, 102, 120
+
+bac, cba, acb, bca, cab
+102, 201, 201, 210, 120
+
+bac, bca, acb, cba, cab
+102, 021, 210, 120, 021
+
+bac, acb, bca, cba, cab
+102, 120, 210, 102, 021
+
+
 
 dab ident c c = 2 <3,1,2,0> (0,3),(1,1),(2,2),(3,0)
 bda (ident c) + 5
@@ -151,16 +182,20 @@ while a < N:
 
 sierra = atos(word)
 
-index = 0
-index_1 = 0
+sierra_alpha = []
 
-n_subNext = 2
+sierra_alpha.append(word)
 
-while index < len(alpha_iota):
+index = 1
+
+while index <= len(alpha_iota):
+    alpha = sierra_alpha[index - factorial(alpha_iota[index - 1] - 1)]
     
-    word = commute(word, 0, alpha_iota[index])
+    c_alpha = commute(alpha, 0, alpha_iota[index - 1])
     
-    sierra += atos(word)
+    sierra_alpha.append(c_alpha)
+    
+    sierra += atos(sierra_alpha[index])
     
     index += 1
     
