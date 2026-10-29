@@ -65,8 +65,8 @@ while index <= L:
                 for aVal in alpha:
                     sierra += aVal
                 
-                if tango == sierra:
-                    print(f"found {tango}")
+                if tango in sierra:
+                    print(f"found {sierra}")
             
             if i - 1 >= 0:
                 iRec(i - 1)
