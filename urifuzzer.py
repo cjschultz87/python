@@ -55,7 +55,7 @@ while index <= L:
     
     i_0 = 0
     
-    while i_0 <= index:
+    while i_0 < index:
         
         alpha.append(alphabet[0])
         
@@ -88,6 +88,6 @@ while index <= L:
             
             alphI += 1
             
-    iRec(index)
+    iRec(index - 1)
     
     index += 1
